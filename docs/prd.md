@@ -1,7 +1,7 @@
 # 📄 Product Requirements Document (PRD)
 
 **Projeto:** GameVault (nome provisório = nome do repositório)
-**Versão:** 0.1.2 · rascunho em entrevista (não commitado)
+**Versão:** 0.1.3 · rascunho completo (não commitado)
 **Última atualização:** 2026-09-13
 
 > 🤖 **Este documento é a fonte da verdade sobre o QUE o produto faz.** Regra de
@@ -139,8 +139,9 @@
 - [ ] **Dado** que o gateway não confirmou o pagamento, **quando** o sistema avalia o pedido, **então** o pedido não é marcado como pago.
 - [ ] **Dado** que o pedido já teve pagamento realizado, **quando** chega uma nova tentativa de pagamento, **então** o sistema impede o segundo pagamento.
 - [ ] **Dado** que a compra não foi confirmada, **quando** o sistema processa o pedido, **então** o estoque não diminui e o pedido não aparece em "minhas compras".
+- [ ] **Dado** que o gateway não responde em até 3 horas, **quando** o prazo expira, **então** a tentativa de pagamento é dada como expirada, o usuário é avisado de que nenhuma resposta foi recebida e pode tentar novamente.
 
-**Regras relacionadas:** RN01, RN03, RN04
+**Regras relacionadas:** RN01, RN03, RN04, RN06
 
 ---
 
@@ -208,6 +209,7 @@
 | RN03 | Um pedido não pode ter mais de um pagamento aprovado. |
 | RN04 | Um pedido só entra para "minhas compras" se o pagamento for confirmado pelo gateway. |
 | RN05 | Um jogo pode ser removido da loja, mas pedidos pagos que o referenciam continuam visíveis no histórico de "minhas compras" (remoção visual; a compra não é apagada). |
+| RN06 | Uma tentativa de pagamento expira se o gateway não responder em 3 horas; o sistema avisa o usuário de que nenhuma resposta foi recebida e ele pode tentar novamente. |
 
 ---
 
@@ -246,6 +248,7 @@
 
 | Data | Versão | O que mudou |
 | :--- | :----- | :---------- |
+| 2026-09-13 | 0.1.3 | Nova RN06 (expiração da tentativa de pagamento em 3h) e critério correspondente na US06 — decisão dos nós vermelhos do /utf-flows |
 | 2026-09-13 | 0.1.2 | US08 com critérios tristes (duplicado + campos obrigatórios); seção 7 (NFRs) preenchida |
 | 2026-09-13 | 0.1.1 | Fora de Escopo preenchido; cancelamento de compra movido da RN02 para Fora de Escopo; RNs renumeradas e referências atualizadas |
 | 2026-09-13 | 0.1.0 | Rascunho em entrevista — seções 1 a 5 (US01–US10, RN01–06) |
