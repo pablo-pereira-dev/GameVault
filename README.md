@@ -114,7 +114,7 @@ ferramentas na documentação atual antes de decidir.
 > ✂️ **Daqui para baixo é a vitrine do SEU projeto.** Apague tudo acima desta
 > linha (incluindo ela) quando o projeto tiver nome, e preencha o que segue.
 
-# [Nome do projeto]
+# [GameVault]
 
 [Uma frase: o problema que resolve e para quem.]
 
