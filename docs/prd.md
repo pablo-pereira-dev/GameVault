@@ -60,7 +60,7 @@
 > Toda story nasce `Draft` — **só você promove a `Ready`**; `Live` é quando o PR
 > da história mescla (o auditor final confere).
 
-### US01 — Visualizar jogos na loja · `Must Have` · `S` · Status: `⚪ Draft`
+### US01 — Visualizar jogos na loja · `Must Have` · `S` · Status: `🟡 Ready`
 
 <!-- Status: `⚪ Draft` (não codificar) · `🟡 Ready` (vira Issue) · `🟢 Live` (PR mesclado) -->
 
@@ -75,7 +75,7 @@
 
 ---
 
-### US02 — Ver detalhes de um jogo · `Must Have` · `S` · Status: `⚪ Draft`
+### US02 — Ver detalhes de um jogo · `Must Have` · `S` · Status: `🟡 Ready`
 
 **Como** usuário, **eu quero** selecionar um jogo na loja e ver seus detalhes **para que** eu decida se vale a compra.
 
@@ -89,7 +89,7 @@
 
 ---
 
-### US03 — Adicionar jogo ao carrinho · `Must Have` · `M` · Status: `⚪ Draft`
+### US03 — Adicionar jogo ao carrinho · `Must Have` · `M` · Status: `🟡 Ready`
 
 **Como** usuário, **eu quero** adicionar um jogo ao meu carrinho **para que** eu possa reservá-lo antes de comprar.
 
@@ -102,7 +102,7 @@
 
 ---
 
-### US04 — Remover jogo do carrinho · `Must Have` · `S` · Status: `⚪ Draft`
+### US04 — Remover jogo do carrinho · `Must Have` · `S` · Status: `🟡 Ready`
 
 **Como** usuário, **eu quero** remover um jogo do meu carrinho **para que** eu possa ajustar o que pretendo comprar antes de fechar o pedido.
 
@@ -115,7 +115,7 @@
 
 ---
 
-### US05 — Fazer o pedido (checkout) · `Must Have` · `M` · Status: `⚪ Draft`
+### US05 — Fazer o pedido (checkout) · `Must Have` · `M` · Status: `🟡 Ready`
 
 **Como** usuário, **eu quero** fechar o pedido com os jogos do meu carrinho **para que** eu confirme minha compra.
 
@@ -128,7 +128,7 @@
 
 ---
 
-### US06 — Pagamento confirmado · `Must Have` · `M` · Status: `⚪ Draft`
+### US06 — Pagamento confirmado · `Must Have` · `M` · Status: `🟡 Ready`
 
 **Como** usuário, **eu quero** que meu pedido só seja dado como pago quando o pagamento for realmente confirmado **para que** apenas compras aprovadas baixem o estoque e apareçam em minhas compras.
 
@@ -145,7 +145,7 @@
 
 ---
 
-### US07 — Visualizar minhas compras · `Must Have` · `S` · Status: `⚪ Draft`
+### US07 — Visualizar minhas compras · `Must Have` · `S` · Status: `🟡 Ready`
 
 **Como** usuário, **eu quero** visualizar a lista dos meus pedidos já pagos **para que** eu possa acompanhar o que comprei.
 
@@ -159,7 +159,7 @@
 
 ---
 
-### US08 — Cadastrar jogo (Administrador) · `Must Have` · `S` · Status: `⚪ Draft`
+### US08 — Cadastrar jogo (Administrador) · `Must Have` · `S` · Status: `🟡 Ready`
 
 **Como** administrador, **eu quero** cadastrar um novo jogo com suas informações **para que** ele fique disponível na loja.
 
@@ -173,7 +173,7 @@
 
 ---
 
-### US09 — Editar jogo (Administrador) · `Must Have` · `S` · Status: `⚪ Draft`
+### US09 — Editar jogo (Administrador) · `Must Have` · `S` · Status: `🟡 Ready`
 
 **Como** administrador, **eu quero** editar as informações de um jogo já cadastrado **para que** a loja se mantenha atualizada.
 
@@ -186,7 +186,7 @@
 
 ---
 
-### US10 — Remover jogo (Administrador) · `Must Have` · `S` · Status: `⚪ Draft`
+### US10 — Remover jogo (Administrador) · `Must Have` · `S` · Status: `🟡 Ready`
 
 **Como** administrador, **eu quero** remover um jogo da loja **para que** eu possa tirar da vitrine algo que não devo mais vender.
 
