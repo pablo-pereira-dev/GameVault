@@ -8,7 +8,16 @@ Centraliza em um só lugar jogos para os jogadores fazerem suas compras
 
 ## Stack
 
-[Preenchida a partir do `docs/architecture.md` — backend, frontend, banco.]
+### Backend
+- NestJS
+- Prisma
+
+### Frontend
+- React
+
+### ORM & Banco de Dados
+- Prisma
+- PostgreSQL
 
 ## Em produção
 
