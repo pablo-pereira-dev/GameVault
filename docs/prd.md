@@ -1,7 +1,7 @@
 # 📄 Product Requirements Document (PRD)
 
 **Projeto:** GameVault (nome provisório = nome do repositório)
-**Versão:** 0.1.4 · rascunho completo (não commitado)
+**Versão:** 0.1.5 · rascunho completo (não commitado)
 **Última atualização:** 2026-10-16
 
 > 🤖 **Este documento é a fonte da verdade sobre o QUE o produto faz.** Regra de
@@ -33,7 +33,10 @@
 | **loja** | A página onde são exibidos todos os jogos disponíveis | com *minhas compras* — a loja mostra o que ainda dá para comprar |
 | **carrinho** | Onde o usuário vê os jogos que tem interesse antes de realizar o pedido | com *pedido* — no carrinho ainda não há compromisso de compra (o estoque não muda) |
 | **estoque** | A quantidade total de unidades de cada jogo disponíveis para venda | com *unidades vendidas* — o estoque só diminui quando o pedido é pago |
-| **pagamento** | O ato de confirmar o pedido dos produtos | com *pedido* — o pedido existe antes de ser pago |
+| **pagamento** | A tentativa de cobrança de um pedido junto ao gateway; termina aprovada, recusada ou expirada ("tentativa de pagamento" é sinônimo) | com *pedido* — o pedido existe antes de ser pago |
+| **usuário** | Pessoa autenticada que navega na loja e compra jogos | com *administrador* — o administrador cuida do catálogo e não compra |
+| **pedido** | O compromisso de compra criado ao finalizar o carrinho; passa por aguardando pagamento, pago, recusado ou expirado ("compra" é sinônimo de pedido pago) | com *carrinho* — o carrinho não gera compromisso; com *pagamento* — o pedido existe antes e independe da tentativa de cobrança |
+| **item** | Um jogo e sua quantidade dentro de um carrinho (item do carrinho) ou de um pedido (item do pedido) | com *jogo* — o item é a linha do carrinho/pedido, o jogo é o produto do catálogo |
 | **minhas compras** | Onde são listados todos os pedidos que o usuário já pagou | com *carrinho* — só entra aqui o que teve pagamento confirmado |
 
 ---
@@ -140,7 +143,7 @@
 - [ ] **Dado** que o gateway não confirmou o pagamento, **quando** o sistema avalia o pedido, **então** o pedido não é marcado como pago.
 - [ ] **Dado** que o pedido já teve pagamento realizado, **quando** chega uma nova tentativa de pagamento, **então** o sistema impede o segundo pagamento.
 - [ ] **Dado** que a compra não foi confirmada, **quando** o sistema processa o pedido, **então** o estoque não diminui e o pedido não aparece em "minhas compras".
-- [ ] **Dado** que o gateway não responde em até 3 horas, **quando** o prazo expira, **então** a tentativa de pagamento e o pedido passam para expirado, o usuário é avisado de que nenhuma resposta foi recebida e pode tentar novamente.
+- [ ] **Dado** que o gateway não responde em até 3 horas, **quando** o prazo expira, **então** a tentativa de pagamento e o pedido passam para expirado, o usuário é avisado de que nenhuma resposta foi recebida e pode tentar novamente iniciando um novo pedido (o pedido expirado não é reaberto).
 
 **Regras relacionadas:** RN01, RN03, RN04, RN06
 
@@ -210,7 +213,7 @@
 | RN03 | Um pedido não pode ter mais de um pagamento aprovado. |
 | RN04 | Um pedido só entra para "minhas compras" se o pagamento for confirmado pelo gateway. |
 | RN05 | Um jogo pode ser removido da loja, mas pedidos pagos que o referenciam continuam visíveis no histórico de "minhas compras" (remoção visual; a compra não é apagada). |
-| RN06 | Uma tentativa de pagamento expira se o gateway não responder em 3 horas; o pedido correspondente passa para o estado expirado, o sistema avisa o usuário de que nenhuma resposta foi recebida e ele pode tentar novamente. |
+| RN06 | Uma tentativa de pagamento expira se o gateway não responder em 3 horas; o pedido correspondente passa para o estado expirado, o sistema avisa o usuário de que nenhuma resposta foi recebida e ele pode tentar novamente iniciando um novo pedido; um pedido expirado não é reaberto. |
 
 ---
 
@@ -249,6 +252,7 @@
 
 | Data | Versão | O que mudou |
 | :--- | :----- | :---------- |
+| 2026-10-16 | 0.1.5 | Glossário: verbetes usuário, pedido e item; pagamento redefinido ("tentativa de pagamento" como sinônimo; "compra" como sinônimo de pedido pago); retry após expiração = novo pedido (RN06, US06) |
 | 2026-10-16 | 0.1.4 | US05 ganha critério de usuário que não volta do gateway (RN06); estado "expirado" adicionado ao pedido (RN06, US06 e NFR de estado do pedido) |
 | 2026-09-13 | 0.1.3 | Nova RN06 (expiração da tentativa de pagamento em 3h) e critério correspondente na US06 — decisão dos nós vermelhos do /utf-flows |
 | 2026-09-13 | 0.1.2 | US08 com critérios tristes (duplicado + campos obrigatórios); seção 7 (NFRs) preenchida |
