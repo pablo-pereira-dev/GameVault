@@ -1,8 +1,8 @@
 # 🗺️ Jornadas de Usuário
 
 **Projeto:** GameVault (nome provisório = nome do repositório)
-**Versão:** 0.1.1 · rascunho completo (não commitado)
-**Última atualização:** 2026-09-13
+**Versão:** 0.1.2 · rascunho completo (não commitado)
+**Última atualização:** 2026-10-16
 
 > 🤖 **Este documento é a fonte da verdade sobre O QUE A PESSOA VIVE na tela** —
 > o caminho do primeiro clique até o objetivo, e principalmente os pontos onde ela
@@ -39,7 +39,7 @@ flowchart TD
 
 **O que decidimos sobre o nó vermelho:**
 
-O pedido não depende do retorno do usuário. Mesmo que ele feche a aba e não volte para a loja, o sistema permanece à espera da resposta do gateway e processa o pagamento normalmente quando ela chegar. O pedido só fica `AGUARDANDO PAGAMENTO` porque o sistema ainda não recebeu a confirmação — não porque o usuário abandonou.
+O pedido não depende do retorno do usuário. Mesmo que ele feche a aba e não volte para a loja, o sistema permanece à espera da resposta do gateway e processa o pagamento normalmente quando ela chegar. O pedido só fica `AGUARDANDO PAGAMENTO` porque o sistema ainda não recebeu a confirmação — não porque o usuário abandonou. Se a confirmação não chegar em até 3 horas, o pedido passa para `EXPIRADO` (RN06), então ele não fica aguardando para sempre.
 
 ---
 
@@ -63,7 +63,7 @@ flowchart TD
 
 **O que decidimos sobre o nó vermelho:**
 
-Se a confirmação do gateway não chegar em até 3 horas, o sistema dá a tentativa de pagamento como expirada: informa o usuário de que nenhuma resposta de pagamento foi recebida e o orienta a tentar novamente. O pedido não fica "em processamento" para sempre — ele termina em um estado reconhecível.
+Se a confirmação do gateway não chegar em até 3 horas, o sistema dá a tentativa de pagamento e o pedido como expirados: informa o usuário de que nenhuma resposta de pagamento foi recebida e o orienta a tentar novamente iniciando um novo pedido (o pedido expirado não é reaberto). O pedido não fica "em processamento" para sempre — ele termina em um estado reconhecível.
 
 ---
 
@@ -71,5 +71,6 @@ Se a confirmação do gateway não chegar em até 3 horas, o sistema dá a tenta
 
 | Data | Versão | O que mudou |
 | :--- | :----- | :---------- |
+| 2026-10-16 | 0.1.2 | Parágrafos das Jornadas 1 e 2 alinhados ao PRD 0.1.5: pedido expirado em 3h (RN06) e retry = novo pedido |
 | 2026-09-13 | 0.1.1 | Parágrafos de decisão dos nós vermelhos (Jornadas 1 e 2) escritos pelo aluno |
 | 2026-09-13 | 0.1.0 | Rascunho em entrevista — diagramas das Jornadas 1 (US05) e 2 (US06) |
