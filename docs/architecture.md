@@ -1,7 +1,7 @@
 # 🛠️ Architecture / Software Design Document
 
 **Projeto:** GameVault
-**Versão:** 1.0.0 · gerado via `/utf-architecture`
+**Versão:** 1.0.1 · gerado via `/utf-architecture`
 **Última atualização:** 2026-10-15
 
 > 🤖 **O `prd.md` responde _o quê_ o produto faz. Este responde _onde as coisas
@@ -146,9 +146,9 @@ O frontend é organizado por **feature/domínio** dentro de `src/features/`. Cad
 | usuário | `User` | `id`, `name`, `email`, `passwordHash`, `role` (USER \| ADMIN), `createdAt` |
 | carrinho | `Cart` | `id`, `userId`, `createdAt` |
 | item do carrinho | `CartItem` | `id`, `cartId`, `gameId`, `quantity` |
-| pedido | `Order` | `id`, `userId`, `status` (PENDING \| PAID \| REFUSED \| EXPIRED), `totalAmount`, `createdAt` |
+| pedido (compra = pedido pago) | `Order` | `id`, `userId`, `status` (PENDING = aguardando pagamento \| PAID \| REFUSED \| EXPIRED), `totalAmount`, `createdAt` |
 | item do pedido | `OrderItem` | `id`, `orderId`, `gameId`, `quantity`, `unitPrice` |
-| pagamento | `Payment` | `id`, `orderId`, `gatewayId`, `status`, `expiresAt`, `createdAt` |
+| pagamento (tentativa de pagamento) | `Payment` | `id`, `orderId`, `gatewayId`, `status` (PENDING \| PAID \| REFUSED \| EXPIRED), `expiresAt`, `createdAt` |
 
 ### 📊 5.2. Diagrama ER (Mermaid)
 
@@ -217,6 +217,7 @@ erDiagram
 > **Notas:**
 > - `unitPrice` em `OrderItem` é snapshot do preço na hora da compra (RN05: jogo removido não apaga histórico).
 > - `Order` → `Payment` é 1:1 — um pedido não pode ter mais de um pagamento aprovado (RN03).
+> - Pedido expirado não é reaberto (RN06): o retry cria um novo `Order`, por isso a relação segue 1:1.
 > - `Cart` não baixa estoque; só `Order` com `Payment` PAID baixa estoque (RN01).
 
 ### 🌍 5.3. O Banco por Ambiente
@@ -249,6 +250,7 @@ erDiagram
 
 | Data | Versão | O que mudou |
 | :--- | :----- | :---------- |
+| 2026-10-16 | 1.0.1 | Glossário técnico: sinônimos (compra, tentativa de pagamento, aguardando pagamento) e valores de `Payment.status`; nota do retry = novo `Order` |
 | 2026-10-15 | 1.0.0 | Versão inicial via `/utf-architecture` |
 
 ---
