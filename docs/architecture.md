@@ -30,10 +30,10 @@
 > Definição **estrita**: nenhuma dependência entra sem aparecer aqui. Esta
 > seção e o `package.json` contam a mesma história, ou o projeto já se perdeu.
 
-- **Backend:** NestJS 12 + Prisma ORM 7 + PostgreSQL
-- **Frontend:** React 19
+- **Backend:** NestJS 12 (projeto em ESM via gerador oficial) + Prisma ORM 7 + PostgreSQL
+- **Frontend:** React 19 + Vite 8
 - **Estilo:** CSS puro com os tokens de `docs/design-tokens.md` (Space Grotesk + Hanken Grotesk)
-- **Testes:** Vitest em ambos os apps — `npm run test` (suíte) · `npm run lint` (lint)
+- **Testes e Lint:** Vitest em ambos os apps · Oxlint como linter padrão para os apps gerados
 
 ### Padrões de código — React 19
 
@@ -114,6 +114,9 @@ GameVault/
         │   └── router.tsx
         └── package.json
 ```
+
+- Scripts de orquestração da raiz criados usando `--prefix`.
+- Arquivo inesperado de build `*.tsbuildinfo` adicionado ao `.gitignore`.
 
 ---
 

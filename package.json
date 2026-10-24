@@ -1,0 +1,13 @@
+{
+  "name": "gamevault",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "api": "npm run start:dev --prefix apps/api",
+    "web": "npm run dev --prefix apps/web",
+    "start": "npm run api",
+    "build": "npm run build --prefix apps/api && npm run build --prefix apps/web",
+    "test": "npm run test --prefix apps/api && npm run test --prefix apps/web",
+    "lint": "npm run lint --prefix apps/api && npm run lint --prefix apps/web"
+  }
+}
