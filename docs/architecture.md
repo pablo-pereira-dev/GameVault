@@ -77,8 +77,7 @@ A documentação OpenAPI é gerada do código com `@nestjs/swagger` e servida em
 
 ## 🗂️ 3. Estrutura do Repositório (Monorepo)
 
-> Uma pasta por aplicação, cada uma com o seu `package.json`. Sem npm
-> workspaces, Nx ou Turborepo — ferramenta sem problema para resolver é só custo.
+> Uma pasta por aplicação, cada uma com o seu `package.json`, gerenciadas via npm workspaces (`apps/*`). Sem Nx ou Turborepo — ferramenta sem problema para resolver é só custo.
 
 ```text
 GameVault/
