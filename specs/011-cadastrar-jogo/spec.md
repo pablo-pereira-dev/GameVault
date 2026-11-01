@@ -1,6 +1,6 @@
 ---
 issue: 11
-status: rascunho
+status: aprovada
 ---
 
 # US08 — Cadastrar jogo (Administrador)
