@@ -23,7 +23,7 @@
   - Teste primeiro: Teste unitário/e2e validando que ao tentar cadastrar jogo com título existente, o backend retorna `409 Conflict`
   - Arquivos previstos: `apps/api/src/games/games.service.ts`, `apps/api/src/games/games.controller.ts`, e testes correspondentes
 
-- [ ] **Tarefa 4 — Implementar formulário de cadastro de jogo e tratamento de rede no Frontend**
+- [x] **Tarefa 4 — Implementar formulário de cadastro de jogo e tratamento de rede no Frontend**
   - Cobre: CA1, CA2, CA3, CA4, CA5
   - Teste primeiro: Testes unitários/componentes do formulário testando submissão bem sucedida, destaque de campos faltantes, descarte de estado ao fechar e tratamento de erro/timeout de rede
   - Arquivos previstos: `apps/web/src/features/admin/services/gameService.ts`, `apps/web/src/features/admin/pages/CreateGamePage.tsx`, e testes correspondentes
