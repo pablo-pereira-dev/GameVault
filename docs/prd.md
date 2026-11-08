@@ -163,15 +163,15 @@
 
 ---
 
-### US08 — Cadastrar jogo (Administrador) · `Must Have` · `S` · Status: `🟡 Ready`
+### US08 — Cadastrar jogo (Administrador) · `Must Have` · `S` · Status: `🟢 Live`
 
 **Como** administrador, **eu quero** cadastrar um novo jogo com suas informações **para que** ele fique disponível na loja.
 
 **Critérios de aceite:**
 
-- [ ] **Dado** que estou cadastrando um jogo, **quando** adiciono as informações, **então** recebo uma mensagem de que o cadastro foi realizado e ele está disponível na loja.
-- [ ] **Dado** que já existe um dado igual (jogo já cadastrado), **quando** tento cadastrar um jogo, **então** vejo uma mensagem informando que o dado já existe.
-- [ ] **Dado** que faltam informações obrigatórias, **quando** tento cadastrar um jogo, **então** visualizo os campos faltantes em destaque, indicando o que está faltando.
+- [x] **Dado** que estou cadastrando um jogo, **quando** adiciono as informações, **então** recebo uma mensagem de que o cadastro foi realizado e ele está disponível na loja.
+- [x] **Dado** que já existe um dado igual (jogo já cadastrado), **quando** tento cadastrar um jogo, **então** vejo uma mensagem informando que o dado já existe.
+- [x] **Dado** que faltam informações obrigatórias, **quando** tento cadastrar um jogo, **então** visualizo os campos faltantes em destaque, indicando o que está faltando.
 
 **Regras relacionadas:** —
 
