@@ -13,7 +13,7 @@
   - Teste primeiro: Teste de integração do Prisma para criação e restrição de unicidade em `Game`
   - Arquivos previstos: `apps/api/prisma/schema.prisma`, `apps/api/src/prisma/prisma.service.ts`
 
-- [ ] **Tarefa 2 — Implementar criação de jogo e validação de campos obrigatórios no Backend**
+- [x] **Tarefa 2 — Implementar criação de jogo e validação de campos obrigatórios no Backend**
   - Cobre: CA1, CA3
   - Teste primeiro: Teste unitário e e2e no `GamesController`/`GamesService` testando DTO com falhas de validação (campos obrigatórios) e sucesso no cadastro
   - Arquivos previstos: `apps/api/src/games/dto/create-game.dto.ts`, `apps/api/src/games/games.service.ts`, `apps/api/src/games/games.controller.ts`, `apps/api/src/games/games.module.ts`, e testes correspondentes
