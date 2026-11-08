@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { ConflictException } from '@nestjs/common';
 import { GamesService } from './games.service.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 
@@ -50,5 +51,22 @@ describe('GamesService', () => {
     expect(result).toBeDefined();
     expect(result.title).toBe(dto.title);
     expect(vi.mocked(prisma.game.create).mock.calls[0][0]).toEqual({ data: dto });
+  });
+
+  it('should throw ConflictException when game with same title already exists (CA2)', async () => {
+    const dto = {
+      title: 'Test Game',
+      description: 'Test Description',
+      price: 99.99,
+      stock: 10,
+      imageUrl: 'http://example.com/image.jpg',
+    };
+
+    vi.mocked(prisma.game.create).mockRejectedValueOnce({
+      code: 'P2002',
+      meta: { target: ['title'] },
+    });
+
+    await expect(service.create(dto)).rejects.toThrow(ConflictException);
   });
 });

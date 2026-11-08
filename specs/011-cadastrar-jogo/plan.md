@@ -18,7 +18,7 @@
   - Teste primeiro: Teste unitário e e2e no `GamesController`/`GamesService` testando DTO com falhas de validação (campos obrigatórios) e sucesso no cadastro
   - Arquivos previstos: `apps/api/src/games/dto/create-game.dto.ts`, `apps/api/src/games/games.service.ts`, `apps/api/src/games/games.controller.ts`, `apps/api/src/games/games.module.ts`, e testes correspondentes
 
-- [ ] **Tarefa 3 — Tratar conflito de título duplicado no Backend**
+- [x] **Tarefa 3 — Tratar conflito de título duplicado no Backend**
   - Cobre: CA2
   - Teste primeiro: Teste unitário/e2e validando que ao tentar cadastrar jogo com título existente, o backend retorna `409 Conflict`
   - Arquivos previstos: `apps/api/src/games/games.service.ts`, `apps/api/src/games/games.controller.ts`, e testes correspondentes
