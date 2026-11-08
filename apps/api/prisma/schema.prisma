@@ -11,3 +11,13 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Game {
+  id          String   @id @default(uuid())
+  title       String   @unique
+  description String
+  price       Decimal
+  stock       Int
+  imageUrl    String
+  createdAt   DateTime @default(now())
+}

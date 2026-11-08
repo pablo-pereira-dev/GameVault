@@ -8,7 +8,7 @@
 
 ## Tarefas
 
-- [ ] **Tarefa 1 — Configurar modelo Game no Prisma e migração**
+- [x] **Tarefa 1 — Configurar modelo Game no Prisma e migração**
   - Cobre: Infraestrutura base para CA1, CA2
   - Teste primeiro: Teste de integração do Prisma para criação e restrição de unicidade em `Game`
   - Arquivos previstos: `apps/api/prisma/schema.prisma`, `apps/api/src/prisma/prisma.service.ts`
