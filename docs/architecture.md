@@ -244,7 +244,7 @@ erDiagram
 
 | Domínio | Módulo (pasta) | Guard | Dados (repository) | US |
 | :------ | :------------- | :---- | :----------------- | :-- |
-| | | | | |
+| Games / Catálogo | `apps/api/src/games` | `JwtAuthGuard` + `RolesGuard` | `PrismaService` (`Game`) | US08 |
 
 ---
 
