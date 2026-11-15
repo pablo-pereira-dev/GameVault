@@ -12,5 +12,8 @@
     "build": "npm run build --prefix apps/api && npm run build --prefix apps/web",
     "test": "npm run test --prefix apps/api && npm run test --prefix apps/web",
     "lint": "npm run lint --prefix apps/api && npm run lint --prefix apps/web"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3"
   }
 }
