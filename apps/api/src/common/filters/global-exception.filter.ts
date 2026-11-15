@@ -28,10 +28,10 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       if (typeof res === 'object' && res !== null) {
         const resObj = res as Record<string, any>;
         message = resObj.message ?? exception.message;
-        error = resObj.error ?? this.formatErrorName(exception.name);
+        error = resObj.error ?? this.formatErrorName(exception.name, statusCode);
       } else if (typeof res === 'string') {
         message = res;
-        error = this.formatErrorName(exception.name);
+        error = this.formatErrorName(exception.name, statusCode);
       }
     } else if (
       exception instanceof Prisma.PrismaClientKnownRequestError ||
@@ -77,7 +77,21 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     });
   }
 
-  private formatErrorName(name: string): string {
+  private formatErrorName(name: string, statusCode?: number): string {
+    const statusMap: Record<number, string> = {
+      400: 'Bad Request',
+      401: 'Unauthorized',
+      403: 'Forbidden',
+      404: 'Not Found',
+      409: 'Conflict',
+      422: 'Unprocessable Entity',
+      500: 'Internal Server Error',
+    };
+
+    if (statusCode && statusMap[statusCode]) {
+      return statusMap[statusCode];
+    }
+
     return name.replace(/Exception$/, '').replace(/([a-z])([A-Z])/g, '$1 $2');
   }
 }
