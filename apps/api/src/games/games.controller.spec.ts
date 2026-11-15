@@ -40,7 +40,7 @@ describe('GamesController', () => {
 
     const result = await controller.create(dto);
     expect(result).toBeDefined();
-    expect(result.title).toBe(dto.description);
+    expect(result.title).toBe(dto.title);
     expect(vi.mocked(service.create).mock.calls[0][0]).toEqual(dto);
   });
 
