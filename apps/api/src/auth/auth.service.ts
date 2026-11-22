@@ -62,4 +62,11 @@ export class AuthService {
 
     return { accessToken };
   }
+
+  async me(userId: string) {
+    return this.prisma.user.findUniqueOrThrow({
+      where: { id: userId },
+      select: { id: true, name: true, email: true, role: true, createdAt: true },
+    });
+  }
 }

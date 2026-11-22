@@ -372,3 +372,37 @@ describe('AuthService (login, integration)', () => {
     );
   });
 });
+
+describe('AuthService (me)', () => {
+  let service: AuthService;
+  let prisma: { user: { findUniqueOrThrow: ReturnType<typeof vi.fn> } };
+
+  beforeEach(async () => {
+    prisma = { user: { findUniqueOrThrow: vi.fn() } };
+
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [JwtModule.register({ secret: 'auth-service-unit-test-secret' })],
+      providers: [AuthService, { provide: PrismaService, useValue: prisma }],
+    }).compile();
+
+    service = module.get<AuthService>(AuthService);
+  });
+
+  it('should fetch the profile by the token sub without ever selecting passwordHash (CA8, ID6)', async () => {
+    prisma.user.findUniqueOrThrow.mockResolvedValue({
+      id: 'user-1',
+      name: 'Ada Lovelace',
+      email: 'ada@example.com',
+      role: 'USER',
+      createdAt: new Date('2026-01-01T00:00:00.000Z'),
+    });
+
+    const user = await service.me('user-1');
+
+    expect(prisma.user.findUniqueOrThrow).toHaveBeenCalledWith({
+      where: { id: 'user-1' },
+      select: { id: true, name: true, email: true, role: true, createdAt: true },
+    });
+    expect(user).not.toHaveProperty('passwordHash');
+  });
+});

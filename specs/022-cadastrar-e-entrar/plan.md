@@ -23,7 +23,7 @@
   - Teste primeiro: Testes unitários e de integração em `AuthService` e `AuthController` validando emissão de token JWT para credenciais válidas e retorno estrito de HTTP 401 genérico ("Credenciais inválidas") tanto para e-mail não cadastrado quanto para senha incorreta
   - Arquivos previstos: `apps/api/src/auth/dto/login.dto.ts`, `apps/api/src/auth/auth.service.ts`, `apps/api/src/auth/auth.controller.ts`, testes correspondentes
 
-- [ ] **Tarefa 4 — Configurar Guards de autenticação JWT, rota /auth/me e autorização por Roles no Backend**
+- [x] **Tarefa 4 — Configurar Guards de autenticação JWT, rota /auth/me e autorização por Roles no Backend**
   - Cobre: CA6, CA8
   - Teste primeiro: Testes unitários e e2e validando que rota protegida exige token válido, que `GET /auth/me` retorna os dados do usuário autenticado, e que `RolesGuard` nega acesso com HTTP 403 Forbidden para usuário comum (`role: USER`) em rota administrativa (`@Roles(Role.ADMIN)`)
   - Arquivos previstos: `apps/api/src/auth/guards/jwt-auth.guard.ts`, `apps/api/src/auth/guards/roles.guard.ts`, `apps/api/src/auth/decorators/public.decorator.ts`, `apps/api/src/auth/decorators/roles.decorator.ts`, `apps/api/src/auth/auth.controller.ts`, `apps/api/src/app.module.ts`, testes correspondentes

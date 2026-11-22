@@ -32,6 +32,6 @@ export const jwtModuleOptionsFactory = (configService: ConfigService): JwtModule
   ],
   controllers: [AuthController],
   providers: [AuthService, PrismaService],
-  exports: [AuthService],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}
