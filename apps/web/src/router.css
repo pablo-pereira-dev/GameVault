@@ -1,0 +1,61 @@
+/* Casca da aplicação — tokens de docs/design-tokens.md (architecture §2). */
+.gv-app {
+  --gv-fundo: #0b0f19;
+  --gv-superficie: #111827;
+  --gv-perigo: #ba1a1a;
+  --gv-texto: #f9fafb;
+  --gv-texto-suave: #9ca3af;
+  --gv-borda: #374151;
+  --gv-esp-3: 16px;
+  --gv-esp-4: 24px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100svh;
+  background: var(--gv-fundo);
+  color: var(--gv-texto);
+  font-family: 'Hanken Grotesk', sans-serif;
+  text-align: left;
+}
+
+.gv-app *,
+.gv-app *::before,
+.gv-app *::after {
+  box-sizing: border-box;
+}
+
+.gv-app__content {
+  width: 100%;
+  max-width: 1126px;
+  margin: 0 auto;
+}
+
+.gv-app__loading {
+  margin: var(--gv-esp-4) auto;
+  color: var(--gv-texto-suave);
+  font-size: 14px;
+  text-align: center;
+}
+
+.gv-forbidden {
+  width: 100%;
+  max-width: 480px;
+  margin: var(--gv-esp-4) auto;
+  padding: var(--gv-esp-4);
+  background: var(--gv-superficie);
+  border: 1px solid var(--gv-borda);
+  border-left: 4px solid var(--gv-perigo);
+  border-radius: 12px;
+}
+
+.gv-forbidden h1 {
+  margin: 0 0 var(--gv-esp-3);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.gv-forbidden p {
+  color: var(--gv-texto-suave);
+  font-size: 14px;
+}

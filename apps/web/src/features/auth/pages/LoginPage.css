@@ -1,0 +1,156 @@
+/* LoginPage — CSS puro com os tokens de docs/design-tokens.md (architecture §2).
+   Regras escopadas sob .login-page para não vazar para outras páginas. */
+.login-page {
+  /* Paleta (nomes semânticos, valores literais do design-tokens.md) */
+  --gv-fundo: #0b0f19;
+  --gv-superficie: #111827;
+  --gv-primaria: #6366f1;
+  --gv-primaria-hover: #4f46e5;
+  --gv-secundaria: #06b6d4;
+  --gv-perigo: #ba1a1a;
+  --gv-texto: #f9fafb;
+  --gv-texto-suave: #9ca3af;
+  --gv-desabilitado: #313540;
+  --gv-borda: #374151;
+
+  /* Espaçamentos */
+  --gv-esp-2: 8px;
+  --gv-esp-3: 16px;
+  --gv-esp-4: 24px;
+  --gv-esp-5: 32px;
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 480px;
+  margin: var(--gv-esp-5) auto;
+  padding: var(--gv-esp-4);
+  background: var(--gv-fundo);
+  color: var(--gv-texto);
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  border: 1px solid var(--gv-borda);
+  border-radius: 12px;
+}
+
+.login-page *,
+.login-page *::before,
+.login-page *::after {
+  box-sizing: border-box;
+}
+
+/* t1 — título de página */
+.login-page h1 {
+  margin: 0 0 var(--gv-esp-4);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gv-texto);
+}
+
+.login-page .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gv-esp-2);
+  margin-bottom: var(--gv-esp-3);
+}
+
+/* t5 — rótulos */
+.login-page label {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gv-texto);
+}
+
+/* t6 — corpo de texto */
+.login-page input {
+  width: 100%;
+  padding: var(--gv-esp-2) var(--gv-esp-3);
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 14px;
+  color: var(--gv-texto);
+  background: var(--gv-superficie);
+  border: 1px solid var(--gv-borda);
+  border-radius: 8px;
+}
+
+.login-page input:focus-visible {
+  outline: 2px solid var(--gv-secundaria);
+  outline-offset: 1px;
+}
+
+/* CA5 — destaque VISÍVEL do campo obrigatório inválido */
+.login-page input[aria-invalid='true'] {
+  border-color: var(--gv-perigo);
+  box-shadow: 0 0 0 2px rgba(186, 26, 26, 0.35);
+}
+
+.login-page .field-error {
+  color: var(--gv-perigo);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-page .error-message {
+  margin-bottom: var(--gv-esp-3);
+  padding: var(--gv-esp-2) var(--gv-esp-3);
+  color: var(--gv-texto);
+  background: var(--gv-superficie);
+  border-left: 4px solid var(--gv-perigo);
+  border-radius: 4px;
+}
+
+/* Cinco estados de botão: normal, hover, foco, desabilitado, carregando. */
+.login-page button {
+  width: 100%;
+  padding: var(--gv-esp-2) var(--gv-esp-3);
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--gv-primaria);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.login-page button:hover:not(:disabled) {
+  background: var(--gv-primaria-hover);
+}
+
+.login-page button:focus-visible {
+  outline: 2px solid var(--gv-secundaria);
+  outline-offset: 2px;
+}
+
+.login-page button:disabled {
+  background: var(--gv-desabilitado);
+  color: var(--gv-texto-suave);
+  cursor: not-allowed;
+}
+
+.login-page button.loading {
+  background: rgba(99, 102, 241, 0.7); /* primaria a 70% */
+  color: #ffffff;
+  cursor: progress;
+}
+
+.login-page button.loading::after {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: var(--gv-esp-2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  vertical-align: middle;
+  animation: gv-login-spin 0.8s linear infinite;
+}
+
+@keyframes gv-login-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,5 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Role } from '../../generated/prisma/enums.js';
+import { Roles } from '../auth/decorators/roles.decorator.js';
 import { GamesService } from './games.service.js';
 import { CreateGameDto } from './dto/create-game.dto.js';
 
@@ -9,6 +11,7 @@ export class GamesController {
   constructor(private readonly gamesService: GamesService) {}
 
   @Post()
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Cadastra um novo jogo no catálogo' })
   @ApiResponse({ status: 201, description: 'Jogo cadastrado com sucesso' })
   @ApiResponse({ status: 400, description: 'Dados de entrada inválidos' })
