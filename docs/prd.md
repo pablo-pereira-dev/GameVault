@@ -1,7 +1,7 @@
 # 📄 Product Requirements Document (PRD)
 
 **Projeto:** GameVault (nome provisório = nome do repositório)
-**Versão:** 0.1.6 · rascunho (adição da US11)
+**Versão:** 0.1.7 · US11 implementada (pronta para PR)
 **Última atualização:** 2026-11-22
 
 > 🤖 **Este documento é a fonte da verdade sobre o QUE o produto faz.** Regra de
@@ -204,7 +204,7 @@
 
 ---
 
-### US11 — Cadastrar e entrar no sistema · `Must Have` · `M` · Status: `🟡 Ready`
+### US11 — Cadastrar e entrar no sistema · `Must Have` · `M` · Status: `🟢 Live`
 
 **Como** visitante ou usuário, **eu quero** criar uma conta e entrar no sistema com minhas credenciais **para que** eu possa acessar os recursos exclusivos do meu perfil (como minhas compras, carrinho ou gestão do catálogo).
 
@@ -272,6 +272,7 @@
 
 | Data | Versão | O que mudou |
 | :--- | :----- | :---------- |
+| 2026-11-22 | 0.1.7 | US11 (Cadastrar e entrar no sistema) implementada — autenticação JWT, guards/roles e frontend de cadastro/login |
 | 2026-11-22 | 0.1.6 | Adição da US11 (Cadastrar e entrar no sistema) em rascunho (Draft) e RN07 (papel fixo de cliente no cadastro) |
 | 2026-10-16 | 0.1.5 | Glossário: verbetes usuário, pedido e item; pagamento redefinido ("tentativa de pagamento" como sinônimo; "compra" como sinônimo de pedido pago); retry após expiração = novo pedido (RN06, US06) |
 | 2026-10-16 | 0.1.4 | US05 ganha critério de usuário que não volta do gateway (RN06); estado "expirado" adicionado ao pedido (RN06, US06 e NFR de estado do pedido) |

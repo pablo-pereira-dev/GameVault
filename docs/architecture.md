@@ -1,8 +1,8 @@
 # 🛠️ Architecture / Software Design Document
 
 **Projeto:** GameVault
-**Versão:** 1.0.1 · gerado via `/utf-architecture`
-**Última atualização:** 2026-10-15
+**Versão:** 1.0.2 · gerado via `/utf-architecture`
+**Última atualização:** 2026-11-22
 
 > 🤖 **O `prd.md` responde _o quê_ o produto faz. Este responde _onde as coisas
 > moram e como se chamam_.** Detalhe de tela — rota, componente, contrato —
@@ -245,6 +245,7 @@ erDiagram
 | Domínio | Módulo (pasta) | Guard | Dados (repository) | US |
 | :------ | :------------- | :---- | :----------------- | :-- |
 | Games / Catálogo | `apps/api/src/games` | `JwtAuthGuard` + `RolesGuard` | `PrismaService` (`Game`) | US08 |
+| Auth / Identidade | `apps/api/src/auth` · `apps/web/src/features/auth` | `JwtAuthGuard` global (público: register/login via `@Public()`) + `RolesGuard` (`@Roles(Role.ADMIN)`) | `PrismaService` (`User`) | US11 |
 
 ---
 
@@ -252,6 +253,7 @@ erDiagram
 
 | Data | Versão | O que mudou |
 | :--- | :----- | :---------- |
+| 2026-11-22 | 1.0.2 | Mapa de Domínios: Auth / Identidade (US11) — módulo, guards e entidade `User` |
 | 2026-10-16 | 1.0.1 | Glossário técnico: sinônimos (compra, tentativa de pagamento, aguardando pagamento) e valores de `Payment.status`; nota do retry = novo `Order` |
 | 2026-10-15 | 1.0.0 | Versão inicial via `/utf-architecture` |
 
