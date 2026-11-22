@@ -1,12 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { CONNECTION_ERROR_MESSAGE } from '../../../shared/services/http';
 import {
+  EMAIL_IN_USE_MESSAGE,
   LOGIN_PATH,
   TOKEN_KEY,
+  EmailAlreadyInUseError,
   UnauthorizedError,
   clearSession,
   getMe,
   handleUnauthorized,
   login,
+  register,
   type StorageLike,
 } from './authService';
 
@@ -162,5 +166,69 @@ describe('authService', () => {
 
     expect(storage.getItem(TOKEN_KEY)).toBe('previous-token');
     expect(redirect).not.toHaveBeenCalled();
+  });
+});
+
+describe('authService.register', () => {
+  const newUser = {
+    id: '1',
+    name: 'Ana',
+    email: 'ana@example.com',
+    role: 'USER',
+    createdAt: '2026-01-01T00:00:00.000Z',
+  };
+  const values = { name: 'Ana', email: 'ana@example.com', password: 'senha123' };
+
+  it('posts the registration data and returns the created user without starting a session (CA1)', async () => {
+    const storage = makeStorage();
+    const redirect = vi.fn<(path: string) => void>();
+    const fetchFn = vi.fn<typeof fetch>().mockResolvedValueOnce({
+      ok: true,
+      status: 201,
+      json: async () => ({ data: newUser }),
+    } as Response);
+
+    const result = await register(values, { storage, redirect, fetchFn });
+
+    expect(fetchFn).toHaveBeenCalledWith(
+      '/auth/register',
+      expect.objectContaining({
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      }),
+    );
+    expect(result).toEqual(newUser);
+    expect(storage.getItem(TOKEN_KEY)).toBeNull();
+    expect(redirect).not.toHaveBeenCalled();
+  });
+
+  it('signals an e-mail conflict on 409 (CA2)', async () => {
+    const fetchFn = vi.fn<typeof fetch>().mockResolvedValueOnce({
+      ok: false,
+      status: 409,
+      json: async () => ({ statusCode: 409, message: EMAIL_IN_USE_MESSAGE, error: 'Conflict' }),
+    } as Response);
+
+    const error = await register(values, { fetchFn }).catch((caught: unknown) => caught);
+
+    expect(error).toBeInstanceOf(EmailAlreadyInUseError);
+    expect((error as Error).message).toBe(EMAIL_IN_USE_MESSAGE);
+  });
+
+  it('surfaces the API validation message on 400 (CA5)', async () => {
+    const fetchFn = vi.fn<typeof fetch>().mockResolvedValueOnce({
+      ok: false,
+      status: 400,
+      json: async () => ({ statusCode: 400, message: 'Senha muito curta', error: 'Bad Request' }),
+    } as Response);
+
+    await expect(register(values, { fetchFn })).rejects.toThrow('Senha muito curta');
+  });
+
+  it('propagates the shared connection message on a network failure (CA9)', async () => {
+    const fetchFn = vi.fn<typeof fetch>().mockRejectedValueOnce(new Error('Failed to fetch'));
+
+    await expect(register(values, { fetchFn })).rejects.toThrow(CONNECTION_ERROR_MESSAGE);
   });
 });

@@ -33,7 +33,7 @@
   - Teste primeiro: Testes unitários no serviço de autenticação e hook de sessão testando persistência e remoção do token no `localStorage`, anexação do token Bearer nas requisições e limpeza de sessão com redirecionamento quando a API responde 401
   - Arquivos previstos: `apps/web/src/features/auth/services/authService.ts`, `apps/web/src/features/auth/context/AuthContext.tsx`, testes correspondentes
 
-- [ ] **Tarefa 6 — Implementar página de Cadastro de Usuário e validações no Frontend**
+- [x] **Tarefa 6 — Implementar página de Cadastro de Usuário e validações no Frontend**
   - Cobre: CA1, CA2, CA5, CA9, CA10
   - Teste primeiro: Testes de componente em `RegisterPage` testando validação visual de campos obrigatórios, bloqueio de submissão inválida, feedback de conflito para e-mail duplicado, tratamento de erro de conexão e descarte de dados ao desmontar
   - Arquivos previstos: `apps/web/src/features/auth/pages/RegisterPage.tsx`, testes correspondentes

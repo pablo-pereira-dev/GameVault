@@ -2,8 +2,15 @@ import { request } from '../../../shared/services/http';
 
 export const TOKEN_KEY = 'gamevault_access_token';
 export const LOGIN_PATH = '/login';
+export const EMAIL_IN_USE_MESSAGE = 'E-mail já está em uso.';
 
 export interface LoginData {
+  email: string;
+  password: string;
+}
+
+export interface RegisterData {
+  name: string;
   email: string;
   password: string;
 }
@@ -36,6 +43,13 @@ export class UnauthorizedError extends Error {
   constructor(message = 'Sessão expirada.') {
     super(message);
     this.name = 'UnauthorizedError';
+  }
+}
+
+export class EmailAlreadyInUseError extends Error {
+  constructor(message = EMAIL_IN_USE_MESSAGE) {
+    super(message);
+    this.name = 'EmailAlreadyInUseError';
   }
 }
 
@@ -100,6 +114,33 @@ export async function login(
   const token: string = json.data.accessToken;
   persistToken(token, options.storage ?? localStorage);
   return token;
+}
+
+/** Cadastro não autentica: não grava token, não redireciona e não toca no storage. */
+export async function register(
+  data: RegisterData,
+  options: AuthServiceOptions = {},
+): Promise<User> {
+  const response = await request(
+    '/auth/register',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    },
+    { fetchFn: options.fetchFn },
+  );
+
+  if (response.status === 409) {
+    throw new EmailAlreadyInUseError();
+  }
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.message || 'Erro ao cadastrar usuário.');
+  }
+
+  const json = await response.json();
+  return json.data;
 }
 
 export async function getMe(options: AuthServiceOptions = {}): Promise<User> {
