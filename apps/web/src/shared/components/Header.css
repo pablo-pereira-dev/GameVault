@@ -1,0 +1,110 @@
+/* Header — CSS puro com os tokens de docs/design-tokens.md (architecture §2). */
+.gv-header {
+  --gv-superficie: #111827;
+  --gv-primaria: #6366f1;
+  --gv-primaria-hover: #4f46e5;
+  --gv-secundaria: #06b6d4;
+  --gv-texto: #f9fafb;
+  --gv-texto-suave: #9ca3af;
+  --gv-borda: #374151;
+  --gv-esp-2: 8px;
+  --gv-esp-3: 16px;
+  --gv-esp-4: 24px;
+
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--gv-superficie);
+  border-bottom: 1px solid var(--gv-borda);
+  color: var(--gv-texto);
+  font-family: 'Hanken Grotesk', sans-serif;
+}
+
+.gv-header *,
+.gv-header *::before,
+.gv-header *::after {
+  box-sizing: border-box;
+}
+
+.gv-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gv-esp-3);
+  width: 100%;
+  max-width: 1126px;
+  margin: 0 auto;
+  padding: var(--gv-esp-3) var(--gv-esp-4);
+}
+
+/* t1 — nome da loja */
+.gv-header__brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gv-texto);
+  text-decoration: none;
+}
+
+.gv-header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--gv-esp-3);
+}
+
+/* t6 — metadados/links */
+.gv-header__link {
+  font-size: 14px;
+  color: var(--gv-texto-suave);
+  text-decoration: none;
+}
+
+.gv-header__link:hover {
+  color: var(--gv-texto);
+}
+
+.gv-header__link--strong {
+  padding: var(--gv-esp-2) var(--gv-esp-3);
+  color: #ffffff;
+  background: var(--gv-primaria);
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.gv-header__link--strong:hover {
+  color: #ffffff;
+  background: var(--gv-primaria-hover);
+}
+
+.gv-header__brand:focus-visible,
+.gv-header__link:focus-visible {
+  outline: 2px solid var(--gv-secundaria);
+  outline-offset: 2px;
+}
+
+/* t5 — nome do usuário logado */
+.gv-header__user {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gv-texto);
+}
+
+.gv-header__logout {
+  padding: var(--gv-esp-2) var(--gv-esp-3);
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gv-texto);
+  background: transparent;
+  border: 1px solid var(--gv-borda);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.gv-header__logout:hover {
+  background: #1f293d; /* superficie-alta */
+}
+
+.gv-header__logout:focus-visible {
+  outline: 2px solid var(--gv-secundaria);
+  outline-offset: 2px;
+}

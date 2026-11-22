@@ -1,7 +1,9 @@
+import { ROUTES } from '../../../shared/constants/routes';
 import { request } from '../../../shared/services/http';
 
 export const TOKEN_KEY = 'gamevault_access_token';
-export const LOGIN_PATH = '/login';
+/** Alias mantido para os consumidores da tarefa 5; o literal vive em ROUTES. */
+export const LOGIN_PATH = ROUTES.login;
 export const EMAIL_IN_USE_MESSAGE = 'E-mail já está em uso.';
 
 export interface LoginData {

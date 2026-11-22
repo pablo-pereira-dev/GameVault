@@ -38,7 +38,7 @@
   - Teste primeiro: Testes de componente em `RegisterPage` testando validação visual de campos obrigatórios, bloqueio de submissão inválida, feedback de conflito para e-mail duplicado, tratamento de erro de conexão e descarte de dados ao desmontar
   - Arquivos previstos: `apps/web/src/features/auth/pages/RegisterPage.tsx`, testes correspondentes
 
-- [ ] **Tarefa 7 — Implementar página de Login, estado de sessão no Header e Logout no Frontend**
+- [x] **Tarefa 7 — Implementar página de Login, estado de sessão no Header e Logout no Frontend**
   - Cobre: CA3, CA4, CA5, CA6, CA7, CA8, CA9, CA10
   - Teste primeiro: Testes de componente em `LoginPage` e Header testando fluxo de login com sucesso, mensagem genérica de erro (401), feedback de falha de conexão, atualização do Header para exibir nome do usuário logado e ação de logout, e bloqueio de rotas administrativas para usuário comum
   - Arquivos previstos: `apps/web/src/features/auth/pages/LoginPage.tsx`, `apps/web/src/shared/components/Header.tsx` (ou componente equivalente), `apps/web/src/router.tsx`, testes correspondentes

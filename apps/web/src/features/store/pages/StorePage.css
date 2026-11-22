@@ -1,0 +1,29 @@
+/* StorePage — placeholder da vitrine, tokens de docs/design-tokens.md. */
+.store-page {
+  --gv-fundo: #0b0f19;
+  --gv-texto: #f9fafb;
+  --gv-texto-suave: #9ca3af;
+  --gv-esp-3: 16px;
+  --gv-esp-4: 24px;
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1126px;
+  margin: 0 auto;
+  padding: var(--gv-esp-4);
+  color: var(--gv-texto);
+  background: var(--gv-fundo);
+  font-family: 'Hanken Grotesk', sans-serif;
+}
+
+.store-page h1 {
+  margin: 0 0 var(--gv-esp-3);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.store-page p {
+  color: var(--gv-texto-suave);
+  font-size: 14px;
+}
