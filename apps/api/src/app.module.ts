@@ -4,11 +4,12 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { ConfigModule } from '@nestjs/config';
 import { GamesModule } from './games/games.module.js';
+import { AuthModule } from './auth/auth.module.js';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor.js';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter.js';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), GamesModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), GamesModule, AuthModule],
   controllers: [AppController],
   providers: [
     AppService,

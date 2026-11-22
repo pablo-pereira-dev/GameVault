@@ -13,7 +13,7 @@
   - Teste primeiro: Teste de integração do Prisma validando persistência do modelo `User` e restrição de unicidade no campo `email`
   - Arquivos previstos: `apps/api/prisma/schema.prisma`, migração do Prisma
 
-- [ ] **Tarefa 2 — Implementar serviço de hashing e registro de usuário (Register) no Backend**
+- [x] **Tarefa 2 — Implementar serviço de hashing e registro de usuário (Register) no Backend**
   - Cobre: CA1, CA2, CA5
   - Teste primeiro: Testes unitários e de integração em `AuthService` e `AuthController` validando DTO com campos obrigatórios/validações, hashing seguro com bcrypt, atribuição de role padrão `USER` e lançamento de HTTP 409 ao tentar cadastrar e-mail duplicado
   - Arquivos previstos: `apps/api/src/auth/dto/register.dto.ts`, `apps/api/src/auth/auth.service.ts`, `apps/api/src/auth/auth.controller.ts`, `apps/api/src/auth/auth.module.ts`, testes correspondentes

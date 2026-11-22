@@ -1,0 +1,171 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { ConflictException, ValidationPipe } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import bcrypt from 'bcrypt';
+import { AuthService } from './auth.service.js';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { RegisterDto } from './dto/register.dto.js';
+
+const registerDto: RegisterDto = {
+  name: 'Ada Lovelace',
+  email: 'ada@example.com',
+  password: 'secret123',
+};
+
+describe('AuthService', () => {
+  let service: AuthService;
+  let prisma: { user: { create: ReturnType<typeof vi.fn> } };
+
+  beforeEach(async () => {
+    prisma = { user: { create: vi.fn() } };
+
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [AuthService, { provide: PrismaService, useValue: prisma }],
+    }).compile();
+
+    service = module.get<AuthService>(AuthService);
+  });
+
+  it('should be defined', () => {
+    expect(service).toBeDefined();
+  });
+
+  it('should persist the password only as a bcrypt hash (CA1)', async () => {
+    prisma.user.create.mockResolvedValue({
+      id: '1',
+      name: registerDto.name,
+      email: registerDto.email,
+      role: 'USER',
+      createdAt: new Date(),
+    });
+
+    await service.register(registerDto);
+
+    const { data } = prisma.user.create.mock.calls[0][0];
+
+    expect(data.passwordHash).toBeDefined();
+    expect(data.passwordHash).not.toBe(registerDto.password);
+    expect(data.passwordHash).not.toContain(registerDto.password);
+    expect(bcrypt.getRounds(data.passwordHash)).toBe(10);
+    expect(await bcrypt.compare(registerDto.password, data.passwordHash)).toBe(true);
+    expect(data).not.toHaveProperty('password');
+  });
+
+  it('should assign the default USER role (CA1)', async () => {
+    prisma.user.create.mockResolvedValue({
+      id: '1',
+      name: registerDto.name,
+      email: registerDto.email,
+      role: 'USER',
+      createdAt: new Date(),
+    });
+
+    const user = await service.register(registerDto);
+
+    expect(prisma.user.create.mock.calls[0][0].data.role).toBe('USER');
+    expect(user.role).toBe('USER');
+  });
+
+  it('should throw ConflictException (409) when the email is already registered (CA2)', async () => {
+    prisma.user.create.mockRejectedValue({ code: 'P2002', meta: { target: ['email'] } });
+
+    const error = await service.register(registerDto).catch((e: unknown) => e);
+
+    expect(error).toBeInstanceOf(ConflictException);
+    expect((error as ConflictException).getStatus()).toBe(409);
+    expect((error as ConflictException).message).toMatch(/e-mail/i);
+  });
+
+  it('should rethrow errors that are not unique-constraint violations (CA2)', async () => {
+    prisma.user.create.mockRejectedValue(new Error('database is down'));
+
+    await expect(service.register(registerDto)).rejects.toThrow('database is down');
+  });
+});
+
+describe('AuthService (Integration)', () => {
+  let service: AuthService;
+  let prisma: PrismaService;
+
+  const email = 'auth-service-integration@example.com';
+  const mixedCaseEmail = 'Auth-Service-Integration@Example.com';
+
+  // Mirrors the global ValidationPipe, so the DTO normalization applied to a
+  // real request is part of what this integration test exercises.
+  const pipe = new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true });
+  const toDto = (payload: object) =>
+    pipe.transform(payload, { type: 'body', metatype: RegisterDto });
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [ConfigModule.forRoot({ isGlobal: true })],
+      providers: [AuthService, PrismaService],
+    }).compile();
+
+    service = module.get<AuthService>(AuthService);
+    prisma = module.get<PrismaService>(PrismaService);
+    await prisma.$connect();
+  });
+
+  afterEach(async () => {
+    await prisma.user.deleteMany({ where: { email: { in: [email, mixedCaseEmail] } } }).catch(() => {});
+    await prisma.$disconnect();
+  });
+
+  it('should create the account with role USER and a bcrypt hash, never the plain password (CA1)', async () => {
+    const user = await service.register({
+      name: 'Integration User',
+      email,
+      password: 'secret123',
+    });
+
+    expect(user.id).toBeDefined();
+    expect(user.email).toBe(email);
+    expect(user.role).toBe('USER');
+    expect(user).not.toHaveProperty('passwordHash');
+    expect(user).not.toHaveProperty('password');
+
+    const stored = await prisma.user.findUnique({ where: { email } });
+
+    expect(stored).not.toBeNull();
+    expect(stored!.passwordHash).not.toBe('secret123');
+    expect(await bcrypt.compare('secret123', stored!.passwordHash)).toBe(true);
+  });
+
+  it('should refuse a duplicated email with 409 and keep a single record (CA2)', async () => {
+    await service.register({ name: 'Integration User', email, password: 'secret123' });
+
+    const error = await service
+      .register({ name: 'Another User', email, password: 'another123' })
+      .catch((e: unknown) => e);
+
+    expect(error).toBeInstanceOf(ConflictException);
+    expect((error as ConflictException).getStatus()).toBe(409);
+    expect(await prisma.user.count({ where: { email } })).toBe(1);
+  });
+
+  it('should store the normalized email and refuse the same address typed in another case with 409 (CA2)', async () => {
+    const first = await service.register(
+      await toDto({ name: 'Integration User', email: mixedCaseEmail, password: 'secret123' }),
+    );
+
+    expect(first.email).toBe(email);
+
+    const error = await service
+      .register(await toDto({ name: 'Another User', email, password: 'another123' }))
+      .catch((e: unknown) => e);
+
+    expect(error).toBeInstanceOf(ConflictException);
+    expect((error as ConflictException).getStatus()).toBe(409);
+    expect(await prisma.user.count({ where: { email } })).toBe(1);
+  });
+
+  it('should persist the name without surrounding whitespace (ID7)', async () => {
+    const user = await service.register(
+      await toDto({ name: '  Integration User  ', email, password: 'secret123' }),
+    );
+
+    expect(user.name).toBe('Integration User');
+    expect((await prisma.user.findUnique({ where: { email } }))!.name).toBe('Integration User');
+  });
+});
