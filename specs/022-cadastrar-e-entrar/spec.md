@@ -1,6 +1,6 @@
 ---
 issue: 22
-status: rascunho   # rascunho | aprovada
+status: aprovada
 ---
 
 # US11 — Cadastrar e entrar no sistema
