@@ -43,7 +43,7 @@
   - Teste primeiro: Testes de componente em `LoginPage` e Header testando fluxo de login com sucesso, mensagem genérica de erro (401), feedback de falha de conexão, atualização do Header para exibir nome do usuário logado e ação de logout, e bloqueio de rotas administrativas para usuário comum
   - Arquivos previstos: `apps/web/src/features/auth/pages/LoginPage.tsx`, `apps/web/src/shared/components/Header.tsx` (ou componente equivalente), `apps/web/src/router.tsx`, testes correspondentes
 
-- [ ] **Tarefa 8 — Autenticar chamadas protegidas do frontend**
+- [x] **Tarefa 8 — Autenticar chamadas protegidas do frontend**
   - Cobre: CA6, CA8 (pendência 1 da auditoria final: o guard global quebrou `POST /games` pela interface)
   - Teste primeiro: Testes em `gameService.test.ts`/`http.test.ts` falhando antes do código — `createGame` deve enviar `Authorization: Bearer <token>` e repassar `onUnauthorized` ao `request`, para que um 401 limpe a sessão e redirecione; sem isso o teste vê `fetch` sem o header
   - Arquivos previstos: `apps/web/src/features/admin/services/gameService.ts`, `apps/web/src/shared/services/http.ts` (se necessário), testes correspondentes
