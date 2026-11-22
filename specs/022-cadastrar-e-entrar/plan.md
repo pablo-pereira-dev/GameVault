@@ -8,7 +8,7 @@
 
 ## Tarefas
 
-- [ ] **Tarefa 1 — Configurar modelo User no Prisma e gerar migração**
+- [x] **Tarefa 1 — Configurar modelo User no Prisma e gerar migração**
   - Cobre: Infraestrutura base para CA1, CA2, CA6
   - Teste primeiro: Teste de integração do Prisma validando persistência do modelo `User` e restrição de unicidade no campo `email`
   - Arquivos previstos: `apps/api/prisma/schema.prisma`, migração do Prisma
