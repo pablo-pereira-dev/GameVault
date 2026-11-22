@@ -30,7 +30,7 @@
 > Definição **estrita**: nenhuma dependência entra sem aparecer aqui. Esta
 > seção e o `package.json` contam a mesma história, ou o projeto já se perdeu.
 
-- **Backend:** NestJS 12 (projeto em ESM via gerador oficial) + Prisma ORM 7 + PostgreSQL
+- **Backend:** NestJS 12 (projeto em ESM via gerador oficial) + Prisma ORM 7 + PostgreSQL · `@nestjs/jwt` (emissão/verificação de JWT) · `bcrypt` (hash de senha)
 - **Frontend:** React 19 + Vite 8
 - **Estilo:** CSS puro com os tokens de `docs/design-tokens.md` (Space Grotesk + Hanken Grotesk)
 - **Testes e Lint:** Vitest em ambos os apps · Oxlint como linter padrão para os apps gerados

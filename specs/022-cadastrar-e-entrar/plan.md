@@ -48,7 +48,7 @@
   - Teste primeiro: Testes em `gameService.test.ts`/`http.test.ts` falhando antes do código — `createGame` deve enviar `Authorization: Bearer <token>` e repassar `onUnauthorized` ao `request`, para que um 401 limpe a sessão e redirecione; sem isso o teste vê `fetch` sem o header
   - Arquivos previstos: `apps/web/src/features/admin/services/gameService.ts`, `apps/web/src/shared/services/http.ts` (se necessário), testes correspondentes
 
-- [ ] **Tarefa 9 — Atualizar a stack documentada no architecture**
+- [x] **Tarefa 9 — Atualizar a stack documentada no architecture**
   - Cobre: nenhum critério novo — corrige a documentação da arquitetura (§2) apontada como pendência 2 da auditoria final
   - Teste primeiro: conferência documental — toda dependência de autenticação presente em `apps/api/package.json` deve aparecer na stack de `docs/architecture.md` §2; hoje `@nestjs/jwt` e `bcrypt` estão ausentes
   - Arquivos previstos: `docs/architecture.md`
