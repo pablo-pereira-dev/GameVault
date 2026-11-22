@@ -1,3 +1,5 @@
+import { request } from '../../../shared/services/http';
+
 export interface CreateGameData {
   title: string;
   description: string;
@@ -12,36 +14,22 @@ export interface Game extends CreateGameData {
 }
 
 export async function createGame(data: CreateGameData): Promise<Game> {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000);
+  const response = await request('/games', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
 
-  try {
-    const response = await fetch('/games', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-      signal: controller.signal,
-    });
-
-    clearTimeout(timeoutId);
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      if (response.status === 409) {
-        throw new Error(errorData.message || 'Já existe um jogo cadastrado com este título.');
-      }
-      throw new Error(errorData.message || 'Erro ao cadastrar jogo.');
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    if (response.status === 409) {
+      throw new Error(errorData.message || 'Já existe um jogo cadastrado com este título.');
     }
-
-    const json = await response.json();
-    return json.data;
-  } catch (err: any) {
-    clearTimeout(timeoutId);
-    if (err.name === 'AbortError' || err.message === 'Failed to fetch' || err.message.includes('network') || err.message.includes('fetch')) {
-      throw new Error('Falha de conexão com a rede. Tente novamente após alguns segundos.');
-    }
-    throw err;
+    throw new Error(errorData.message || 'Erro ao cadastrar jogo.');
   }
+
+  const json = await response.json();
+  return json.data;
 }

@@ -28,7 +28,7 @@
   - Teste primeiro: Testes unitários e e2e validando que rota protegida exige token válido, que `GET /auth/me` retorna os dados do usuário autenticado, e que `RolesGuard` nega acesso com HTTP 403 Forbidden para usuário comum (`role: USER`) em rota administrativa (`@Roles(Role.ADMIN)`)
   - Arquivos previstos: `apps/api/src/auth/guards/jwt-auth.guard.ts`, `apps/api/src/auth/guards/roles.guard.ts`, `apps/api/src/auth/decorators/public.decorator.ts`, `apps/api/src/auth/decorators/roles.decorator.ts`, `apps/api/src/auth/auth.controller.ts`, `apps/api/src/app.module.ts`, testes correspondentes
 
-- [ ] **Tarefa 5 — Implementar serviço de autenticação e contexto de sessão no Frontend**
+- [x] **Tarefa 5 — Implementar serviço de autenticação e contexto de sessão no Frontend**
   - Cobre: CA3, CA7, CA8
   - Teste primeiro: Testes unitários no serviço de autenticação e hook de sessão testando persistência e remoção do token no `localStorage`, anexação do token Bearer nas requisições e limpeza de sessão com redirecionamento quando a API responde 401
   - Arquivos previstos: `apps/web/src/features/auth/services/authService.ts`, `apps/web/src/features/auth/context/AuthContext.tsx`, testes correspondentes
