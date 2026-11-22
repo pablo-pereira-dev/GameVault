@@ -18,7 +18,7 @@
   - Teste primeiro: Testes unitários e de integração em `AuthService` e `AuthController` validando DTO com campos obrigatórios/validações, hashing seguro com bcrypt, atribuição de role padrão `USER` e lançamento de HTTP 409 ao tentar cadastrar e-mail duplicado
   - Arquivos previstos: `apps/api/src/auth/dto/register.dto.ts`, `apps/api/src/auth/auth.service.ts`, `apps/api/src/auth/auth.controller.ts`, `apps/api/src/auth/auth.module.ts`, testes correspondentes
 
-- [ ] **Tarefa 3 — Implementar autenticação (Login) com JWT no Backend**
+- [x] **Tarefa 3 — Implementar autenticação (Login) com JWT no Backend**
   - Cobre: CA3, CA4, CA5
   - Teste primeiro: Testes unitários e de integração em `AuthService` e `AuthController` validando emissão de token JWT para credenciais válidas e retorno estrito de HTTP 401 genérico ("Credenciais inválidas") tanto para e-mail não cadastrado quanto para senha incorreta
   - Arquivos previstos: `apps/api/src/auth/dto/login.dto.ts`, `apps/api/src/auth/auth.service.ts`, `apps/api/src/auth/auth.controller.ts`, testes correspondentes

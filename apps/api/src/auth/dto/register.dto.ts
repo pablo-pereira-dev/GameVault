@@ -1,12 +1,10 @@
 import { Transform } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { NormalizeEmail } from '../../common/decorators/normalize-email.decorator.js';
 
 const trimString = ({ value }: { value: unknown }) =>
   typeof value === 'string' ? value.trim() : value;
-
-const normalizeEmail = ({ value }: { value: unknown }) =>
-  typeof value === 'string' ? value.trim().toLowerCase() : value;
 
 export class RegisterDto {
   @ApiProperty({
@@ -22,7 +20,7 @@ export class RegisterDto {
     description: 'E-mail único do usuário',
     example: 'ada@example.com',
   })
-  @Transform(normalizeEmail)
+  @NormalizeEmail()
   @IsEmail()
   email!: string;
 
