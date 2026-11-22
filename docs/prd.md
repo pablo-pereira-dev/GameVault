@@ -1,8 +1,8 @@
 # 📄 Product Requirements Document (PRD)
 
 **Projeto:** GameVault (nome provisório = nome do repositório)
-**Versão:** 0.1.5 · rascunho completo (não commitado)
-**Última atualização:** 2026-10-16
+**Versão:** 0.1.6 · rascunho (adição da US11)
+**Última atualização:** 2026-11-22
 
 > 🤖 **Este documento é a fonte da verdade sobre o QUE o produto faz.** Regra de
 > negócio que não estiver aqui não existe — nem para a equipe, nem para a IA.
@@ -204,6 +204,25 @@
 
 ---
 
+### US11 — Cadastrar e entrar no sistema · `Must Have` · `M` · Status: `🟡 Ready`
+
+**Como** visitante ou usuário, **eu quero** criar uma conta e entrar no sistema com minhas credenciais **para que** eu possa acessar os recursos exclusivos do meu perfil (como minhas compras, carrinho ou gestão do catálogo).
+
+**Critérios de aceite:**
+
+- [ ] **Dado** que sou um visitante com dados válidos, **quando** confirmo meu cadastro, **então** minha conta é criada com perfil de usuário comum e posso realizar login (senhas nunca são exibidas ou armazenadas em texto legível).
+- [ ] **Dado** que tento me cadastrar com um e-mail que já possui conta, **quando** confirmo o cadastro, **então** o sistema recusa o cadastro e informa que o e-mail não pode ser utilizado, sem criar registros duplicados.
+- [ ] **Dado** que possuo cadastro ativo e informo credenciais corretas, **quando** solicito entrar, **então** sou autenticado com sucesso e direcionado para a loja com as opções do meu perfil.
+- [ ] **Dado** que informo um e-mail não cadastrado OU uma senha incorreta, **quando** tento entrar, **então** recebo exatamente a mesma mensagem genérica de credenciais inválidas, sem revelar se o e-mail existe no sistema.
+- [ ] **Dado** que deixo campos obrigatórios em branco, **quando** tento cadastrar ou entrar, **então** vejo o destaque dos campos que precisam ser preenchidos e o envio não é realizado.
+- [ ] **Dado** que sou um usuário comum autenticado, **quando** tento acessar qualquer funcionalidade restrita a administradores, **então** meu acesso é impedido com aviso de permissão negada.
+- [ ] **Dado** que sou um usuário autenticado, **quando** acesso meu carrinho ou minhas compras, **então** visualizo estritamente os meus próprios registros, nunca os de outro usuário (regra de dono).
+- [ ] **Dado** que minha sessão de login expirou, **quando** tento realizar uma operação protegida, **então** a sessão é encerrada e sou redirecionado para a tela de login.
+
+**Regras relacionadas:** RN07
+
+---
+
 ## 🛡️ 5. Regras de Negócio (Constraints)
 
 | ID | Regra |
@@ -214,6 +233,7 @@
 | RN04 | Um pedido só entra para "minhas compras" se o pagamento for confirmado pelo gateway. |
 | RN05 | Um jogo pode ser removido da loja, mas pedidos pagos que o referenciam continuam visíveis no histórico de "minhas compras" (remoção visual; a compra não é apagada). |
 | RN06 | Uma tentativa de pagamento expira se o gateway não responder em 3 horas; o pedido correspondente passa para o estado expirado, o sistema avisa o usuário de que nenhuma resposta foi recebida e ele pode tentar novamente iniciando um novo pedido; um pedido expirado não é reaberto. |
+| RN07 | Todo novo usuário cadastrado recebe obrigatoriamente o papel de usuário comum (cliente); a atribuição do papel de administrador é feita exclusivamente de forma administrativa direta, nunca pelo formulário de cadastro. |
 
 ---
 
@@ -252,6 +272,7 @@
 
 | Data | Versão | O que mudou |
 | :--- | :----- | :---------- |
+| 2026-11-22 | 0.1.6 | Adição da US11 (Cadastrar e entrar no sistema) em rascunho (Draft) e RN07 (papel fixo de cliente no cadastro) |
 | 2026-10-16 | 0.1.5 | Glossário: verbetes usuário, pedido e item; pagamento redefinido ("tentativa de pagamento" como sinônimo; "compra" como sinônimo de pedido pago); retry após expiração = novo pedido (RN06, US06) |
 | 2026-10-16 | 0.1.4 | US05 ganha critério de usuário que não volta do gateway (RN06); estado "expirado" adicionado ao pedido (RN06, US06 e NFR de estado do pedido) |
 | 2026-09-13 | 0.1.3 | Nova RN06 (expiração da tentativa de pagamento em 3h) e critério correspondente na US06 — decisão dos nós vermelhos do /utf-flows |
